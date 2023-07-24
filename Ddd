@@ -1,0 +1,56 @@
+--[[xr.4606/muscle]]
+--[[BetaTest]]
+function EquipItem(ToolSe)
+if game.Players.LocalPlayer.Backpack:FindFirstChild(ToolSe) then
+ Tool = game.Players.LocalPlayer.Backpack:WaitForChild(ToolSe)
+   wait(.1)
+  game.Players.LocalPlayer.Character.Humanoid:EquipTool(Tool)
+      end
+end
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Tester", "DarkTheme")
+local Tab = Window:NewTab("General")
+local Section = Tab:NewSection("Select Farm")
+
+item = {}
+for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do  
+    if v:IsA("Tool") then
+       table.insert(item ,v.Name)
+    end
+end
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do  
+    if v:IsA("Tool") then
+       table.insert(item, v.Name)
+    end
+end
+
+
+Section:NewDropdown("Select Item", "a",item, function(b)
+  _G.Item = b
+  end)
+ 
+Section:NewToggle("Auto Farm", "ToggleInfo", function(state)
+  _G.Farm = state
+ if _G.Farm == state then
+   while _G.Farm do wait()
+     EquipItem(tostring(_G.Item))
+   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-38.36824417114258, 3.467186689376831, 1883.963134765625)
+if _G.Item == "Weight" then
+  local args = {
+    [1] = "rep"
+}
+game:GetService("Players").LocalPlayer:WaitForChild("muscleEvent"):FireServer(unpack(args))
+elseif _G.Item == "Punch" then
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(14.307361602783203, 11.425483703613281, 2110.78369140625)
+  local args = {
+    [1] = "punch",
+    [2] = "leftHand"
+}
+
+game:GetService("Players").LocalPlayer:WaitForChild("muscleEvent"):FireServer(unpack(args))
+
+end
+end
+end
+end)
